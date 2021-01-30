@@ -12,7 +12,9 @@ describe('My first puppeteer test',()=>{
 
       await page.waitFor(3000)
       await page.waitForSelector('h1[class="p-name h3"]')
-
+      await page.reload()
+      await page.waitFor(2000)
+      await page.waitForSelector('h1[class="p-name h3"]')
       await browser.close()
     })
 })
