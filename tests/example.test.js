@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer')
+const expect = require("chai").expect
 
 describe('My first puppeteer test',()=>{
     xit('should see what is typed in the input field', async ()=>{
@@ -97,7 +98,29 @@ describe('My first puppeteer test',()=>{
       const page = await browser.newPage()
       await page.goto("https://www.nytimes.com/2021/01/30/us/politics/trump-right-wing-domestic-terrorism.html")
       const countPtag = await page.$$eval('p', element => element.length)
-      console.log("number of p tag: "+ countPtag)
+      //console.log(countPtag)
+      expect(countPtag).to.equal(77)
+      await browser.close()
+    })
+
+
+    xit('should able to count number of p tag in the page ', async ()=>{
+      const browser = await puppeteer.launch({
+        headless: false,
+        slowMo: 10,
+        devtools: false
+      })
+      const page = await browser.newPage()
+      await page.goto("https://www.nytimes.com/2021/01/30/us/politics/trump-right-wing-domestic-terrorism.html")
+      const title = await page.title()
+      const url = await page.url()
+      const textContent = await page.$eval("#link-754258c0", element => element.textContent)
+      const countPtag = await page.$$eval('p', element => element.length)
+
+      expect(title).to.include("How Trump’s Focus on Antifa Distracted Attention From the Far-Right Threat")
+      expect(textContent).to.be.a('string','How Trump’s Focus on Antifa Distracted Attention From the Far-Right Threat')
+      expect(url).to.include("nytimes.com/2021/01/30/us/politics/trump-right-wing-domestic-terrorism")
+      expect(countPtag).to.equal(77)
       await browser.close()
     })
 
