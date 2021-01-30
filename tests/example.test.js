@@ -111,6 +111,8 @@ describe('My first puppeteer test',()=>{
         devtools: false
       })
       const page = await browser.newPage()
+      await page.setDefaultTimeout(10000) //change defaut timeout from 45secs to 10secs
+      await page.setDefaultNavigationTimeout(20000) //change default navigation Timeout 
       await page.goto("https://www.nytimes.com/2021/01/30/us/politics/trump-right-wing-domestic-terrorism.html")
       const title = await page.title()
       const url = await page.url()
