@@ -4,7 +4,7 @@ const expect = require("chai").expect
 describe('My first puppeteer test',()=>{
     xit('should see what is typed in the input field', async ()=>{
       const browser = await puppeteer.launch({
-        headless: false,
+        headless: false, //if set true, run test fastr , don't see the web launch
         slowMo: 10,
         devtools: false
       })
@@ -104,15 +104,15 @@ describe('My first puppeteer test',()=>{
     })
 
 
-    xit('should able to count number of p tag in the page ', async ()=>{
+    xit('should able to get title, url,number of p tag in the page ', async ()=>{
       const browser = await puppeteer.launch({
         headless: false,
         slowMo: 10,
         devtools: false
       })
       const page = await browser.newPage()
-      await page.setDefaultTimeout(10000) //change defaut timeout from 45secs to 10secs
-      await page.setDefaultNavigationTimeout(20000) //change default navigation Timeout 
+      // await page.setDefaultTimeout(10000) //change defaut timeout from 45secs to 10secs
+      // await page.setDefaultNavigationTimeout(20000) //change default navigation Timeout
       await page.goto("https://www.nytimes.com/2021/01/30/us/politics/trump-right-wing-domestic-terrorism.html")
       const title = await page.title()
       const url = await page.url()
@@ -126,5 +126,18 @@ describe('My first puppeteer test',()=>{
       await browser.close()
     })
 
-
+    it('should able to handle keyboard pressed after typing in input field', async ()=>{
+      const browser = await puppeteer.launch({
+        headless: false,
+        slowMo: 10,
+        devtools: false
+      })
+      const page = await browser.newPage()
+      await page.goto("https://www.amazon.com/")
+      await page.waitForSelector("#twotabsearchtextbox")
+      await page.type("#twotabsearchtextbox","kitkat")
+      await page.keyboard.press("Enter",{delay:10})
+      await page.waitFor(5000)
+      await browser.close()
+    })
 })
