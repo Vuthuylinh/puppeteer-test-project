@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer')
 
 describe('My first puppeteer test',()=>{
-    it('should see what is typed in the input field', async ()=>{
+    xit('should see what is typed in the input field', async ()=>{
       const browser = await puppeteer.launch({
         headless: false,
         slowMo: 10,
@@ -13,7 +13,7 @@ describe('My first puppeteer test',()=>{
       await page.waitFor(2000) // got to the browser for 5secs
       await browser.close()
     })
-    it('should handle button', async ()=>{
+    xit('should handle button', async ()=>{
       const browser = await puppeteer.launch({
         headless: false,
         slowMo: 10,
@@ -28,7 +28,7 @@ describe('My first puppeteer test',()=>{
       await browser.close()
     })
 
-    it('should handles select/dropdown', async ()=>{
+    xit('should handles select/dropdown', async ()=>{
       const browser = await puppeteer.launch({
         headless: false,
         slowMo: 10,
@@ -40,7 +40,7 @@ describe('My first puppeteer test',()=>{
       await page.waitFor(5000)
       await browser.close()
     })
-    it('should handles input, click, select/dropdown and submit', async ()=>{
+    xit('should handles input, click, select/dropdown and submit', async ()=>{
       const browser = await puppeteer.launch({
         headless: false,
         slowMo: 10,
@@ -56,6 +56,21 @@ describe('My first puppeteer test',()=>{
       await page.click("#submit-button")
       await page.waitForSelector('.result-content')
       await page.waitFor(5000)
+      await browser.close()
+    })
+
+    it('should extract title, url of a website ', async ()=>{
+      const browser = await puppeteer.launch({
+        headless: false,
+        slowMo: 10,
+        devtools: false
+      })
+      const page = await browser.newPage()
+      await page.goto("https://www.nytimes.com/")
+      const title = await page.title()
+      const url = await page.url()
+      console.log("TITLE: " + title)
+      console.log("url " + url)
       await browser.close()
     })
 
