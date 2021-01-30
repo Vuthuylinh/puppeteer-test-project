@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer')
 
 describe('My first puppeteer test',()=>{
-    it('should see what is typing in the input field', async ()=>{
+    it('should see what is typed in the input field', async ()=>{
       const browser = await puppeteer.launch({
         headless: false,
         slowMo: 10,
@@ -23,6 +23,19 @@ describe('My first puppeteer test',()=>{
       await page.goto("https://www.amazon.com/")
       await page.type("#twotabsearchtextbox", "cooker",{delay: 300})
       await page.click("#nav-search-submit-button",{clickCount: 1})
+      await page.waitFor(2000)
+      await browser.close()
+    })
+
+    it('should handles select/dropdown', async ()=>{
+      const browser = await puppeteer.launch({
+        headless: false,
+        slowMo: 10,
+        devtools: false
+      })
+      const page = await browser.newPage()
+      await page.goto("https://devexpress.github.io/testcafe/example/")
+      await page.select('#preferred-interface','JavaScript API')
       await page.waitFor(5000)
       await browser.close()
     })
