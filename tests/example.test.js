@@ -8,15 +8,9 @@ describe('My first puppeteer test',()=>{
         devtools: false
       })
       const page = await browser.newPage()
-      await page.goto('https://www.macys.com/shop/product/tommy-hilfiger-quilted-zip-jacket?ID=11351781&CategoryID=10066&swatchColor=Scarlet')
-
-      await page.waitForSelector('h1[class="p-name h3"]')
-      await page.goto('https://dev.to/')
-      await page.waitForSelector('#active-broadcast')
-      await page.goBack()
-      await page.waitForSelector('h1[class="p-name h3"]')
-      await page.goForward()
-      await page.waitForSelector('#active-broadcast')
+      await page.goto("https://www.amazon.com/")
+      await page.type("#twotabsearchtextbox", "cooker", {delay: 1000}) //1st argument is the selector, 2nd is value, 3rd arg-> slow motion -> slow typing speed -> dev to test
+      await page.waitFor(5000) // got to the browser for 5secs
       await browser.close()
     })
 })
