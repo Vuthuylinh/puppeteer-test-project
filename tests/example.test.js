@@ -73,7 +73,7 @@ describe('My first puppeteer test',()=>{
       console.log("url " + url)
       await browser.close()
     })
-    it('should print out extracted title, url of a website/article ', async ()=>{
+    xit('should print out extracted title, url of a website/article ', async ()=>{
       const browser = await puppeteer.launch({
         headless: false,
         slowMo: 10,
@@ -85,6 +85,19 @@ describe('My first puppeteer test',()=>{
       const url = await page.url()
       const textContent = await page.$eval("#link-754258c0", element => element.textContent)
       console.log("text content: "+textContent)
+      await browser.close()
+    })
+
+    xit('should able to count number of p tag in the page ', async ()=>{
+      const browser = await puppeteer.launch({
+        headless: false,
+        slowMo: 10,
+        devtools: false
+      })
+      const page = await browser.newPage()
+      await page.goto("https://www.nytimes.com/2021/01/30/us/politics/trump-right-wing-domestic-terrorism.html")
+      const countPtag = await page.$$eval('p', element => element.length)
+      console.log("number of p tag: "+ countPtag)
       await browser.close()
     })
 
