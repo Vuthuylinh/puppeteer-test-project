@@ -21,7 +21,8 @@ describe('My first puppeteer test',()=>{
       })
       const page = await browser.newPage()
       await page.goto("https://www.amazon.com/")
-      await page.type("#twotabsearchtextbox", "cooker",{delay: 300})
+      const message = "electric cooker"
+      await page.type("#twotabsearchtextbox", message,{delay: 200})
       await page.click("#nav-search-submit-button",{clickCount: 1})
       await page.waitFor(2000)
       await browser.close()
@@ -36,6 +37,24 @@ describe('My first puppeteer test',()=>{
       const page = await browser.newPage()
       await page.goto("https://devexpress.github.io/testcafe/example/")
       await page.select('#preferred-interface','JavaScript API')
+      await page.waitFor(5000)
+      await browser.close()
+    })
+    it('should handles input, click, select/dropdown and submit', async ()=>{
+      const browser = await puppeteer.launch({
+        headless: false,
+        slowMo: 10,
+        devtools: false
+      })
+      const page = await browser.newPage()
+      await page.goto("https://devexpress.github.io/testcafe/example/")
+      await page.type("#developer-name","linh Vu",{delay: 500})
+      await page.click("#tried-test-cafe")
+      await page.select('#preferred-interface','JavaScript API')
+      const message ="I am writing something nice in here"
+      await page.type("#comments", message, {delay: 150})
+      await page.click("#submit-button")
+      await page.waitForSelector('.result-content')
       await page.waitFor(5000)
       await browser.close()
     })
